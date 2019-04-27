@@ -1,0 +1,56 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "go build -o ${workspaceFolder}/build/ab",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
+            "label": "Build arm",
+            "type": "shell",
+            "group": "build",
+            "options": {
+                "env": {
+                    "GOOS": "linux",
+                    "GOARCH": "arm64"
+                }
+            },
+            "command": "go build -o ${workspaceFolder}/build/ab -gcflags '-N -l'",
+            "problemMatcher": [
+                "$go"
+            ]
+        },
+        {
+            "label": "Kill gdbserver",
+            "type": "shell",
+            "group": "none",
+            "command": "C:/Program Files/PuTTY/plink.exe",
+            "args": ["-batch", "-pw", "ab", "ab@AlphaBot", "killall -q gdbserver; exit 0"],
+            "dependsOn": "Build arm"
+        },
+        {
+            "label": "Remote copy",
+            "type": "shell",
+            "group": "none",
+            "command": "C:/Program Files/PuTTY/pscp.exe",
+            "args": ["-pw", "ab", "${workspaceFolder}/build/ab", "ab@AlphaBot:/tmp/ab"],
+            "dependsOn": "Kill gdbserver"
+        },
+        {
+            "label": "Run gdbserver",
+            "type": "shell",
+            "group": "none",
+            "command": "C:/Program Files/PuTTY/plink.exe",
+            "args": ["-batch", "-pw", "ab", "ab@AlphaBot", "chmod +x /tmp/ab && gdbserver :1234 /tmp/ab > /dev/null 2>&1 &"],
+            "dependsOn": "Remote copy"
+        }     
+    ]
+}

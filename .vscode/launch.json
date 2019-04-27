@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${fileDirname}",
+            "env": {},
+            "args": [],
+            "output": "build/debug"
+        },
+        {
+            "name": "Remote Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/ab",
+            "targetArchitecture": "arm64",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerServerAddress": "AlphaBot:1234",
+            "miDebuggerPath": "E:/dev/ab/gcc-linaro-7.3.1-2018.05-i686-mingw32_aarch64-linux-gnu/bin/aarch64-linux-gnu-gdb.exe",
+            "preLaunchTask": "Run gdbserver",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for golang",
+                    "text": "add-auto-load-safe-path C:/Go/src/runtime/runtime-gdb.py",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
