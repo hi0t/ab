@@ -2,21 +2,12 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build",
+            "label": "Build arm",
             "type": "shell",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "command": "go build -o ${workspaceFolder}/build/ab",
-            "problemMatcher": [
-                "$go"
-            ]
-        },
-        {
-            "label": "Build arm",
-            "type": "shell",
-            "group": "build",
             "options": {
                 "env": {
                     "GOOS": "linux",

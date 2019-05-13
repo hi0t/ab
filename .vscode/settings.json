@@ -1,0 +1,8 @@
+{
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "go.toolsEnvVars": {
+        "GOOS": "linux",
+        "GOARCH": "arm64"
+    }
+}
